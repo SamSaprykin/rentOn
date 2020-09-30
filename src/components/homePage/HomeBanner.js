@@ -8,7 +8,6 @@ import {
   Banner,
   Video,
   BannerTitle,
-  Canvas,
   Headline,
 } from "../../styles/homeStyles"
 
@@ -49,8 +48,8 @@ const HomeBanner = ({ onCursor }) => {
         />
       </Video>
       <BannerTitle variants={container} initial="initial" animate="animate">
-        <Headline variants={item}>DIG</Headline>
-        <Headline variants={item}>DEEP</Headline>
+        <Headline variants={item}>RENT</Headline>
+        <Headline variants={item}>ON</Headline>
       </BannerTitle>
     </Banner>
   )
