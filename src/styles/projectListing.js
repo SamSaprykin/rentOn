@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { motion } from "framer-motion"
-
+import { Link } from "gatsby"
 //Featured Section
 export const HomeFeaturedSection = styled(motion.div)`
   margin-top: 60px;
@@ -18,6 +18,7 @@ export const HomeFeaturedSection = styled(motion.div)`
       if (reverse === false) return "row;"
     }};
   }
+ 
 `
 
 export const FeaturedContent = styled(motion.div)`
@@ -49,7 +50,7 @@ export const FeaturedVideo = styled.div`
   overflow: hidden;
   img {
     object-fit:cover;
-    width: 80%;
+    width: 100%;
     height: 420px;
   }
 `
@@ -93,6 +94,20 @@ export const FeaturedProjects = styled.div`
   }
 `
 
+export const TextHeaderProject = styled(motion.div)`
+  
+  
+
+  .featured-title {
+    position: absolute;
+    bottom: 40px;
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 60px;
+    margin: 0;
+  }
+`
+
 
 export const TextProject = styled(motion.div)`
   position:relative;
@@ -126,4 +141,12 @@ export const TextProject = styled(motion.div)`
 
 export const ExcerptProject = styled(motion.h3)`
 
+`
+
+export const MotionLink = styled(motion.div)`
+    margin-bottom: 50px;
+    margin-top:150px;
+    position: relative;
+    display: flex;
+    justify-content:flex-start;
 `

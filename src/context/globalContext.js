@@ -47,6 +47,6 @@ export const GlobalProvider = ({ children }) => {
 }
 
 //custom hooks for when we want to use our global state
-export const useGlobalStateContext = () => useContext(GlobalStateContext) || { currentTheme: "light", cursorType: 'hovered', cursorStyles: ["pointer", "hovered", "locked"] }
+export const useGlobalStateContext = () => useContext(GlobalStateContext) || { currentTheme: "dark", cursorType: 'hovered', cursorStyles: ["pointer", "hovered", "locked"] }
 
 export const useGlobalDispatchContext = () => useContext(GlobalDispatchContext) 
