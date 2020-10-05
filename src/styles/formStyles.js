@@ -55,7 +55,7 @@ export const InputSubscribe = styled(motion.input)`
 `
 
 export const DescriptionSubscribe = styled(motion.h5)`
-    
+
     font-size: 24px;
     font-weight: 600;
     line-height: 16px;

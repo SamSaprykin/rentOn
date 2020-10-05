@@ -24,6 +24,7 @@ export const FooterSocial = styled.div`
   position: relative;
   a {
     position: relative;
+    box-sizing:content-box;
     display: block;
     width: 24px;
     height: 24px;
