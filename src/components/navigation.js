@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Link } from "gatsby"
 //Styled Components
 import { Container, Flex } from "../styles/globalStyles"
+import { useStaticQuery, graphql } from "gatsby"
+import { IntlContextConsumer, changeLocale } from "gatsby-plugin-intl"
 import {
   Nav,
   NavHeader,
@@ -16,48 +18,24 @@ import { Instagram, Facebook, Vimeo } from "../assets/svg/social-icons"
 //Framer Motion
 import { motion, AnimatePresence } from "framer-motion"
 
-const navRoutes = [
-  {
-    id: 0,
-    title: "not humble",
-    path: "/not-humble",
-    video: "featured-video.mp4",
-  },
-  {
-    id: 1,
-    title: "bleeping easy",
-    path: "/bleeping-easy",
-    video: "easy.mp4",
-  },
-  {
-    id: 2,
-    title: "make it zero",
-    path: "/make-it-zero",
-    video: "make-it-zero.mp4",
-  },
-  {
-    id: 3,
-    title: "it takes an island",
-    path: "/it-takes-an-island",
-    video: "it-takes-an-island.mp4",
-  },
-  {
-    id: 4,
-    title: "50 beaches",
-    path: "/50-beaches",
-    video: "50-beaches.mp4",
-  },
-]
 
-const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
+
+const Navigation = ({ toggleMenu, setToggleMenu, onCursor, data }) => {
+  
   const [revealVideo, setRevealVideo] = useState({
     show: false,
-    video: "featured-video.mp4",
+    video: data.node.featuredProjects[0].projectVideo.file.url,
     key: "0",
   })
-
+  
+  console.log(data.node.featuredProjects)
   return (
     <>
+    <IntlContextConsumer>
+
+      {({ languages, language: currentLocale }) =>
+      
+      languages.map(language => (
       <AnimatePresence>
         {toggleMenu && (
           <Nav
@@ -69,7 +47,11 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
             <Container>
               <NavHeader>
                 <Flex spaceBetween noHeight>
-                  <h2 to="/">Projects</h2>
+                  
+                  
+                    <h2 to="/">{data.node.titleMenu}</h2>
+                  
+                 
                   <CloseNav
                     onClick={() => setToggleMenu(!toggleMenu)}
                     onMouseEnter={() => onCursor("pointer")}
@@ -83,57 +65,60 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
                 </Flex>
               </NavHeader>
               <NavList>
-                <ul>
-                  {navRoutes.map(route => (
-                    <motion.li
-                      key={route.id}
-                      onMouseEnter={() => onCursor("pointer")}
-                      onMouseLeave={onCursor}
-                      onHoverStart={() =>
-                        setRevealVideo({
-                          show: true,
-                          video: route.video,
-                          key: route.id,
-                        })
-                      }
-                      onHoverEnd={() =>
-                        setRevealVideo({
-                          show: false,
-                          video: route.video,
-                          key: route.id,
-                        })
-                      }
-                    >
-                      <Link to={`/projects${route.path}`}>
-                        <motion.div
-                          initial={{ x: -108 }}
-                          className="link"
-                          whileHover={{
-                            x: -40,
-                            transition: {
-                              duration: 0.4,
-                              ease: [0.6, 0.05, -0.01, 0.9],
-                            },
-                          }}
-                        >
-                          <span className="arrow">
-                            <motion.svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 101 57"
-                            >
-                              <path
-                                d="M33 34H0V24h81.429L66 7.884 73.548 0l19.877 20.763.027-.029L101 28.618 73.829 57l-7.548-7.884L80.753 34H33z"
-                                fill="#000"
-                                fillRule="evenodd"
-                              ></path>
-                            </motion.svg>
-                          </span>
-                          {route.title}
-                        </motion.div>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
+                  <ul>
+                    {data.node.featuredProjects.map(route => (
+                      <motion.li
+                        key={route.id}
+                        onMouseEnter={() => onCursor("pointer")}
+                        onMouseLeave={onCursor}
+                        onHoverStart={() =>
+                          setRevealVideo({
+                            show: true,
+                            video: route.projectVideo.file.url,
+                            key: route.videId,
+                          })
+                        }
+                        onHoverEnd={() =>
+                          setRevealVideo({
+                            show: false,
+                            video: route.projectVideo.file.url,
+                            key: route.videId,
+                          })
+                        }
+                      >
+                        
+                        <Link to={`/projects${route.path}`}>
+                          <motion.div
+                            initial={{ x: -108 }}
+                            className="link"
+                            whileHover={{
+                              x: -40,
+                              transition: {
+                                duration: 0.4,
+                                ease: [0.6, 0.05, -0.01, 0.9],
+                              },
+                            }}
+                          >
+                            <span className="arrow">
+                              <motion.svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 101 57"
+                              >
+                                <path
+                                  d="M33 34H0V24h81.429L66 7.884 73.548 0l19.877 20.763.027-.029L101 28.618 73.829 57l-7.548-7.884L80.753 34H33z"
+                                  fill="#000"
+                                  fillRule="evenodd"
+                                ></path>
+                              </motion.svg>
+                            </span>
+                            
+                            
+                            {route.nameProject}
+                          </motion.div>
+                        </Link>
+                      </motion.li>
+                    ))}
+                  </ul>
               </NavList>
               <NavFooter>
                 <Flex spaceBetween>
@@ -180,7 +165,7 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
                   <AnimatePresence initial={false} exitBeforeEnter>
                     <motion.video
                       key={revealVideo.key}
-                      src={require(`../assets/video/${revealVideo.video}`)}
+                      src={revealVideo.video}
                       initial={{ opacity: 0 }}
                       exit={{ opacity: 0 }}
                       animate={{
@@ -197,6 +182,9 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
           </Nav>
         )}
       </AnimatePresence>
+      ))
+    }
+  </IntlContextConsumer>
     </>
   )
 }
