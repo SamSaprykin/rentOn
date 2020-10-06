@@ -46,3 +46,13 @@ export const Menu = styled.div`
     }
   }
 `
+
+export const LinkLang = styled.a`
+  color:${props => props.theme.text};
+  margin: 0 8px;
+  textDecoration: underline;
+  cursor: pointer;
+  :hover {
+    color:${props => props.theme.text};
+  }
+`

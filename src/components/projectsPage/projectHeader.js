@@ -18,9 +18,7 @@ const ProjectHeader = ({ onCursor, data }) => {
   return (
     
       <Container>
-          <HomeFeaturedSection 
-            
-          >
+          <HomeFeaturedSection >
           <Container>
             <MotionLink
               initial={{
@@ -87,7 +85,7 @@ const ProjectHeader = ({ onCursor, data }) => {
                     height: 420,
                   }}
                   animate={{
-                    height: window.innerWidth > 1440 ? 800 : 620,
+                    height: 620,
                     transition: { duration: 2, ease: [0.6, 0.05, -0.01, 0.9] },
                   }}
                 />

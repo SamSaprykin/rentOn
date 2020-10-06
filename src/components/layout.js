@@ -15,6 +15,8 @@ import {
   useGlobalStateContext,
   useGlobalDispatchContext,
 } from "../context/globalContext"
+import { injectIntl, FormattedMessage, IntlContextConsumer } from "gatsby-plugin-intl"
+
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
@@ -38,7 +40,7 @@ body {
 }
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children, intl }) => {
   const dispatch = useGlobalDispatchContext()
   const { cursorStyles, currentTheme } = useGlobalStateContext()
   const data = useStaticQuery(graphql`
@@ -48,14 +50,35 @@ const Layout = ({ children }) => {
           title
         }
       }
+      allContentfulRentonMenu {
+        edges {
+          node {
+            id
+            titleMenu
+            featuredProjects {
+              projectVideo {
+                file {
+                  url
+                }
+              }
+              nameProject
+              videId
+            }
+            node_locale
+            
+          }
+        }
+      }
     }
   `)
-
+  
+  const EngMenuData = data.allContentfulRentonMenu.edges[0]
+  const RusMenuData = data.allContentfulRentonMenu.edges[1]
   const [hamburgerPosition, setHamburgerPosition] = useState({
     x: 0,
     y: 0,
   })
-
+  
   const [toggleMenu, setToggleMenu] = useState(false)
 
   const darkTheme = {
@@ -76,7 +99,7 @@ const Layout = ({ children }) => {
     cursorType = (cursorStyles.includes(cursorType) && cursorType) || false
     dispatch({ type: "CURSOR_TYPE", cursorType: cursorType })
   }
-
+  
   return (
     <ThemeProvider theme={currentTheme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
@@ -89,12 +112,33 @@ const Layout = ({ children }) => {
         setHamburgerPosition={setHamburgerPosition}
         siteTitle={data.site.siteMetadata.title}
       />
-      <Navigation
-        toggleMenu={toggleMenu}
-        setToggleMenu={setToggleMenu}
-        onCursor={onCursor}
-        setHamburgerPosition={setHamburgerPosition}
-      />
+      <IntlContextConsumer>
+        {({ languages, language: currentLocale }) =>
+          
+          languages.map(language => (
+            <div>
+              {currentLocale === "en" && (
+                <Navigation
+                  toggleMenu={toggleMenu}
+                  setToggleMenu={setToggleMenu}
+                  data={EngMenuData}
+                  onCursor={onCursor}
+                  setHamburgerPosition={setHamburgerPosition}
+                />
+              )}
+              {currentLocale === "ru" && (
+                <Navigation
+                  toggleMenu={toggleMenu}
+                  setToggleMenu={setToggleMenu}
+                  data={RusMenuData}
+                  onCursor={onCursor}
+                  setHamburgerPosition={setHamburgerPosition}
+                />
+              )}
+            </div>
+          ))
+        }
+      </IntlContextConsumer>
       <main>{children}</main>
       <Footer
         onCursor={onCursor}
@@ -109,4 +153,6 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+
+
+export default injectIntl(Layout)
