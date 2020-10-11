@@ -22,11 +22,14 @@ export const HomeFeaturedSection = styled(motion.div)`
 `
 
 export const FeaturedContent = styled(motion.div)`
-  height: 400px;
+  height: 200px;
   width: 62%;
   padding: 16px 32px;
   box-sizing: border-box;
   color: ${props => props.theme.text};
+  .featured-title {
+    font-weight:800;
+  }
   h3 {
     font-size: 1.4rem;
   }
@@ -95,9 +98,6 @@ export const FeaturedProjects = styled.div`
 `
 
 export const TextHeaderProject = styled(motion.div)`
-  
-  
-
   .featured-title {
     position: absolute;
     bottom: 40px;
