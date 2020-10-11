@@ -30,7 +30,7 @@ const Anim = ({ children, delay, exit }) => {
           transition: { delay:`${delay}`,duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] },
         },
         hidden: { opacity: 0, y: 72 },
-        exit: { opacity:0 }
+        
       }}
     >
       {children}

@@ -28,7 +28,7 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor, data }) => {
     key: "0",
   })
   
-  console.log(data.node.featuredProjects)
+  
   return (
     <>
     <IntlContextConsumer>

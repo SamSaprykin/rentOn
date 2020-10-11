@@ -12,9 +12,8 @@ import AnimImage from "../AnimImage"
 
 
 const ProjectsListing = ({ onCursor, data }) => {
-    const [hovered, setHovered] = useState(false)
-    
-    
+  const [hovered, setHovered] = useState(false)
+
   return (
     
     <Anim exit="exit">
@@ -31,13 +30,13 @@ const ProjectsListing = ({ onCursor, data }) => {
                   >
                     <Anim delay="1">
                       <Flex spaceBetween>
-                        <h3>Featured Project</h3>
+                        <h3 className="featured-title">Featured Project</h3>
                         <motion.div
                           animate={{ opacity: hovered ? 1 : 0 }}
                           transition={{ duration: 0.6, ease: [0.6, 0.05, -0.01, 0.9] }}
                           className="meta"
                         >
-                          <h3>
+                          <h3 className="featured-title">
                             {data.place}
                           </h3>
                         </motion.div>
