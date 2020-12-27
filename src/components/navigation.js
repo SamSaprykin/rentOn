@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
+import styled from "styled-components"
 //Styled Components
 import { Container, Flex } from "../styles/globalStyles"
 import { useStaticQuery, graphql } from "gatsby"
@@ -188,5 +189,7 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor, data }) => {
     </>
   )
 }
+
+
 
 export default Navigation

@@ -98,6 +98,7 @@ export const FeaturedProjects = styled.div`
 `
 
 export const TextHeaderProject = styled(motion.div)`
+  
   .featured-title {
     position: absolute;
     bottom: 40px;
