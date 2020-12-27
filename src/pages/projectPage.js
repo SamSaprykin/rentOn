@@ -1,6 +1,5 @@
 import React from "react"
 import Layout from "../components/layout"
-
 import ProjectHeader from "../components/projectsPage/ProjectHeader"
 import SubscribeForm from "../components/subscribeForm"
 //Context
@@ -32,8 +31,11 @@ const IndexPage = props => {
     <Layout>
       <ProjectHeader onCursor={onCursor} data={ProjectsInfo}/>
       <SubscribeForm onCursor={onCursor} />
+      
     </Layout>
   )
 }
+
+
 
 export default IndexPage
